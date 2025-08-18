@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7sj1adjnm0lt"]
+
+[ext_resource type="Script" uid="uid://dfmccioxnptui" path="res://tower.gd" id="1_2bvrh"]
+[ext_resource type="Texture2D" uid="uid://dodxow3hmqpa6" path="res://ASSETS/turret base 1.png" id="1_xjfff"]
+[ext_resource type="PackedScene" uid="uid://cno8y33wvvewj" path="res://shooter.tscn" id="2_fa245"]
+[ext_resource type="AudioStream" uid="uid://c2yc64wc6d630" path="res://ASSETS/sounds/zapsplat_impacts_metal_and_glass_box_drop_smash_break_004_108038.mp3" id="4_pgybd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bne8s"]
+radius = 25.0
+
+[node name="Needler_turret" type="CharacterBody2D"]
+script = ExtResource("1_2bvrh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1.19756)
+shape = SubResource("CircleShape2D_bne8s")
+
+[node name="TurretBase1" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("1_xjfff")
+
+[node name="Shooter" parent="." instance=ExtResource("2_fa245")]
+collision_layer = 1
+collision_mask = 1
+
+[node name="ShootSound" parent="Shooter" index="2"]
+stream = ExtResource("4_pgybd")
+volume_db = -20.0
+
+[node name="FireRate_Timer" parent="Shooter" index="3"]
+wait_time = 0.25
+
+[editable path="Shooter"]

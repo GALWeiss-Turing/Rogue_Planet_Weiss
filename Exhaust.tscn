@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://13y0wxcotkhj"]
+
+[ext_resource type="Texture2D" uid="uid://cdftirmfgl01g" path="res://ASSETS/fire.png" id="1_hiwlw"]
+
+[sub_resource type="Curve" id="Curve_e5ytv"]
+_data = [Vector2(0, 0.736264), 0.0, -0.108669, 0, 0, Vector2(0.365169, 0.538462), -0.632838, -0.632838, 0, 0, Vector2(0.691011, 0), -1.65252, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_1m87j"]
+offsets = PackedFloat32Array(0, 0.173333, 0.553333)
+colors = PackedColorArray(1, 1, 0.945098, 1, 0.837156, 0.555031, 0, 1, 0.235662, 6.61798e-07, 4.2716e-07, 1)
+
+[node name="Exhaust" type="CPUParticles2D"]
+amount = 50
+speed_scale = 0.7
+explosiveness = 0.04
+texture = ExtResource("1_hiwlw")
+emission_shape = 1
+emission_sphere_radius = 0.42
+direction = Vector2(-1, 0)
+spread = 3.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.91
+initial_velocity_max = 173.12
+scale_amount_min = 0.0
+scale_amount_curve = SubResource("Curve_e5ytv")
+color_ramp = SubResource("Gradient_1m87j")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq4lolply4y74"]
+
+[ext_resource type="Script" uid="uid://dh8n3aomakgfa" path="res://asteroid.gd" id="1_3nqss"]
+[ext_resource type="Texture2D" uid="uid://dcpcgrpkkfojp" path="res://ASSETS/asteroidb3.png" id="2_m7j3s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i6rau"]
+radius = 41.1947
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_aa0y3"]
+polygon = PackedVector2Array(-37, -23, -42, -4, -29, 26, -2, 45, 27, 31, 42, 12, 42, -9, 28, -28, 8, -36, -27, -32)
+
+[node name="Big_Asteroid3" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_3nqss")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 5)
+shape = SubResource("CircleShape2D_i6rau")
+
+[node name="Asteroidb3" type="Sprite2D" parent="."]
+position = Vector2(6, 4)
+texture = ExtResource("2_m7j3s")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(3, 4)
+occluder = SubResource("OccluderPolygon2D_aa0y3")
+occluder_light_mask = 3

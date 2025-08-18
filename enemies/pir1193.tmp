@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b464grw821joi"]
+
+[ext_resource type="Script" path="res://enemies/pirate_corvette.gd" id="1_cl4q3"]
+[ext_resource type="Texture2D" uid="uid://2cab75bf2qo8" path="res://ASSETS/ship 1.png" id="2_5lecd"]
+[ext_resource type="PackedScene" uid="uid://b15klewskg7ec" path="res://enemies/death_explosion.tscn" id="2_iy8i5"]
+[ext_resource type="PackedScene" uid="uid://13y0wxcotkhj" path="res://Exhaust.tscn" id="2_j6ynw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fjpy"]
+radius = 16.0312
+
+[node name="pirate_corvette" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_cl4q3")
+
+[node name="Exhaust" parent="." instance=ExtResource("2_j6ynw")]
+position = Vector2(-14, 0)
+scale = Vector2(0.4, 0.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+rotation = 1.56941
+shape = SubResource("CircleShape2D_1fjpy")
+
+[node name="Ship1" type="Sprite2D" parent="."]
+position = Vector2(-1, -1)
+rotation = 1.56941
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_5lecd")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Death_explosion" parent="." instance=ExtResource("2_iy8i5")]
+unique_name_in_owner = true
+emitting = false
+lifetime = 1.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

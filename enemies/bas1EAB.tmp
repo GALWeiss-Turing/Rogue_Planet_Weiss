@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://chpx426gg5eu3"]
+
+[ext_resource type="Script" path="res://enemies/basic_mob.gd" id="1_lphq2"]
+[ext_resource type="Texture2D" uid="uid://2cab75bf2qo8" path="res://ASSETS/ship 1.png" id="1_xrjn5"]
+[ext_resource type="PackedScene" uid="uid://bwf0srjkjsb5q" path="res://health_component.tscn" id="3_t50kt"]
+[ext_resource type="PackedScene" uid="uid://ygwv4skg5ssq" path="res://hitbox_component.tscn" id="4_ifpo7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fqhvj"]
+radius = 14.9996
+height = 29.9993
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8u1l0"]
+radius = 13.0
+height = 33.8861
+
+[node name="basic_mob" type="CharacterBody2D"]
+rotation = -0.00706661
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_lphq2")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_fqhvj")
+
+[node name="Ship1" type="Sprite2D" parent="."]
+position = Vector2(1.00704, -0.992908)
+rotation = 1.57431
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xrjn5")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_t50kt")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_ifpo7")]
+collision_layer = 2
+collision_mask = 3
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+visible = false
+rotation = 1.57666
+shape = SubResource("CapsuleShape2D_8u1l0")

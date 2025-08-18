@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6l80o2b6l8qx"]
+
+[ext_resource type="Script" path="res://buildings/main_base.gd" id="1_f8bts"]
+[ext_resource type="Texture2D" uid="uid://185p4pk4tg4b" path="res://ASSETS/building 1.png" id="1_ic0yo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v85ky"]
+radius = 55.5788
+
+[node name="main_base" type="CharacterBody2D"]
+script = ExtResource("1_f8bts")
+
+[node name="Building1" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("1_ic0yo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_v85ky")

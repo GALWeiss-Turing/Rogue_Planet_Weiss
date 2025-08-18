@@ -1,0 +1,113 @@
+[gd_scene load_steps=11 format=3 uid="uid://bu7hfccbwbwqp"]
+
+[ext_resource type="Script" uid="uid://dbm8w0taqjx70" path="res://GAME.gd" id="1_f82ap"]
+[ext_resource type="Script" uid="uid://pcrxev8ceqxy" path="res://Camera2D.gd" id="2_3teao"]
+[ext_resource type="Texture2D" uid="uid://cetfga2tgxvd5" path="res://ASSETS/background.png" id="2_672c6"]
+[ext_resource type="PackedScene" uid="uid://b6l80o2b6l8qx" path="res://buildings/main_base.tscn" id="2_d2cbi"]
+[ext_resource type="Texture2D" uid="uid://drj5phqdju53m" path="res://ASSETS/planet.png" id="3_gii0u"]
+[ext_resource type="PackedScene" uid="uid://dlh5fmkdilqgn" path="res://big_asteroid_1.tscn" id="8_w2gfs"]
+[ext_resource type="PackedScene" uid="uid://cwk6dxfl2hidq" path="res://big_asteroid_2.tscn" id="9_1r13m"]
+[ext_resource type="PackedScene" uid="uid://c7sj1adjnm0lt" path="res://needler_turret.tscn" id="9_o8vba"]
+[ext_resource type="PackedScene" uid="uid://bq4lolply4y74" path="res://big_asteroid_3.tscn" id="10_jreal"]
+
+[sub_resource type="Curve2D" id="Curve2D_kp03y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -764.274, 1309.63, 0, 0, 0, 0, -1317.03, 423.704, 0, 0, 0, 0, -1236.75, -1029.77, 0, 0, 0, 0, -71.1932, -1529.54, 0, 0, 0, 0, 1351, -1551.49, 0, 0, 0, 0, 2523.86, -1244.2, 0, 0, 0, 0, 2833.99, -270.98, 0, 0, 0, 0, 2671.18, 1257.91, 0, 0, 0, 0, 543.241, 1382.87, 0, 0, 0, 0, -764.274, 1309.63)
+}
+point_count = 10
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_f82ap")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(7468, 5557)
+
+[node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+z_index = -1
+z_as_relative = false
+position = Vector2(643, 348)
+texture = ExtResource("2_672c6")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(34, -1075)
+
+[node name="Planet" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+light_mask = 2
+visibility_layer = 2
+z_index = 1
+position = Vector2(439, 1412)
+texture = ExtResource("3_gii0u")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(563, 302)
+limit_left = -3000
+limit_top = -2500
+limit_right = 4400
+limit_bottom = 3100
+position_smoothing_enabled = true
+script = ExtResource("2_3teao")
+zoom_in_limit = 1.0
+zoom_speed = 3.0
+
+[node name="main_base" parent="." instance=ExtResource("2_d2cbi")]
+position = Vector2(559, 283)
+
+[node name="Timer_cruiser" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="Timer_mob" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Path2D" type="Path2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(11, 587)
+rotation = -0.00706661
+curve = SubResource("Curve2D_kp03y")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+unique_name_in_owner = true
+position = Vector2(-764.274, 1309.63)
+rotation = -2.12863
+
+[node name="Big_Asteroid1" parent="." instance=ExtResource("8_w2gfs")]
+position = Vector2(826, -131)
+
+[node name="Big_Asteroid2" parent="." instance=ExtResource("9_1r13m")]
+position = Vector2(968, -187)
+
+[node name="Big_Asteroid3" parent="." instance=ExtResource("10_jreal")]
+position = Vector2(854, -235)
+
+[node name="Big_Asteroid4" parent="." instance=ExtResource("8_w2gfs")]
+position = Vector2(-208, 579)
+
+[node name="Big_Asteroid5" parent="." instance=ExtResource("9_1r13m")]
+position = Vector2(-282, 725)
+
+[node name="Big_Asteroid6" parent="." instance=ExtResource("10_jreal")]
+position = Vector2(-226, 435)
+
+[node name="Needler_turret" parent="." instance=ExtResource("9_o8vba")]
+position = Vector2(414, 422)
+
+[node name="Needler_turret2" parent="." instance=ExtResource("9_o8vba")]
+position = Vector2(669, 488)
+
+[node name="Needler_turret3" parent="." instance=ExtResource("9_o8vba")]
+position = Vector2(775, 298)
+
+[node name="Needler_turret4" parent="." instance=ExtResource("9_o8vba")]
+position = Vector2(631, 132)
+
+[node name="Needler_turret5" parent="." instance=ExtResource("9_o8vba")]
+position = Vector2(427, 196)
+
+[connection signal="timeout" from="Timer_cruiser" to="." method="_on_timer_cruiser_timeout"]
+[connection signal="timeout" from="Timer_mob" to="." method="_on_timer_mob_timeout"]

@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://dqrnbbcmayxpl"]
+
+[ext_resource type="Script" uid="uid://deof2up5g4p5j" path="res://plasma_projectile.gd" id="1_iiifo"]
+[ext_resource type="Texture2D" uid="uid://cgnl32bwao0ki" path="res://ASSETS/plasma.png" id="3_nf7r8"]
+[ext_resource type="Texture2D" uid="uid://cdftirmfgl01g" path="res://ASSETS/fire.png" id="3_pr371"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xcnur"]
+
+[sub_resource type="Gradient" id="Gradient_vcm80"]
+offsets = PackedFloat32Array(0, 0.577922)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wewjj"]
+gradient = SubResource("Gradient_vcm80")
+width = 16
+height = 32
+fill = 1
+fill_from = Vector2(0.481651, 0.463303)
+
+[sub_resource type="Curve" id="Curve_rl1nf"]
+_data = [Vector2(0.0168539, 0.912088), 0.0, 0.0, 0, 0, Vector2(0.460674, 0.56044), 0.0, 0.0, 0, 0, Vector2(1, 0.384615), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_xu22g"]
+offsets = PackedFloat32Array(0, 0.58, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.124076, 0.352607, 0.967175, 1, 0.24604, 0.112879, 0.663183, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yi4v"]
+radius = 100.0
+
+[node name="Plasma_projectile" type="Area2D"]
+top_level = true
+rotation = 3.15381
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_iiifo")
+metadata/_edit_horizontal_guides_ = [-26.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xcnur")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+light_mask = 1023
+visibility_layer = 1023
+z_index = 2
+position = Vector2(-0.0610853, -4.99963)
+rotation = -0.0131383
+energy = 1.83
+range_z_max = 1025
+range_layer_min = -512
+range_layer_max = 512
+range_item_cull_mask = 7
+shadow_color = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_wewjj")
+
+[node name="Plasma" type="Sprite2D" parent="."]
+position = Vector2(-0.0488683, -3.9997)
+rotation = 3.12108
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_nf7r8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("3_pr371")
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.41
+initial_velocity_max = 101.02
+damping_min = 62.626
+damping_max = 62.626
+scale_amount_curve = SubResource("Curve_rl1nf")
+color_ramp = SubResource("Gradient_xu22g")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_7yi4v")
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

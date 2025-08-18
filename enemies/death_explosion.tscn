@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b15klewskg7ec"]
+
+[ext_resource type="Texture2D" uid="uid://cdftirmfgl01g" path="res://ASSETS/fire.png" id="1_c05i4"]
+
+[sub_resource type="Curve" id="Curve_qdu3n"]
+_data = [Vector2(0, 0.912088), 0.0, -1.89295, 0, 0, Vector2(0.230337, 0.263736), -1.46703, -1.46703, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_kxc88"]
+offsets = PackedFloat32Array(0, 0.1, 0.253333, 0.426667, 0.986667)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.415686, 1, 0.783115, 0.460674, 0, 1, 0.494112, 0.000534023, 0.000292635, 1, 0.103504, 2.77677e-05, 1.52078e-05, 1)
+
+[node name="Death_explosion" type="CPUParticles2D"]
+amount = 50
+lifetime = 0.5
+speed_scale = 2.24
+explosiveness = 1.0
+texture = ExtResource("1_c05i4")
+emission_shape = 1
+emission_sphere_radius = 14.23
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.4
+initial_velocity_max = 101.01
+damping_min = 50.505
+damping_max = 70.893
+scale_amount_min = 0.5
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_qdu3n")
+color = Color(1, 1, 0.929412, 1)
+color_ramp = SubResource("Gradient_kxc88")
