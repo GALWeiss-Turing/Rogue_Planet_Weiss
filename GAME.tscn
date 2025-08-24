@@ -1,14 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://bu7hfccbwbwqp"]
+[gd_scene load_steps=14 format=3 uid="uid://bu7hfccbwbwqp"]
 
 [ext_resource type="Script" uid="uid://dbm8w0taqjx70" path="res://GAME.gd" id="1_f82ap"]
 [ext_resource type="Script" uid="uid://pcrxev8ceqxy" path="res://Camera2D.gd" id="2_3teao"]
 [ext_resource type="Texture2D" uid="uid://cetfga2tgxvd5" path="res://ASSETS/background.png" id="2_672c6"]
 [ext_resource type="PackedScene" uid="uid://b6l80o2b6l8qx" path="res://buildings/main_base.tscn" id="2_d2cbi"]
+[ext_resource type="PackedScene" uid="uid://c60f1lf1idcyw" path="res://minimap.tscn" id="2_wkoew"]
 [ext_resource type="Texture2D" uid="uid://drj5phqdju53m" path="res://ASSETS/planet.png" id="3_gii0u"]
 [ext_resource type="PackedScene" uid="uid://dlh5fmkdilqgn" path="res://big_asteroid_1.tscn" id="8_w2gfs"]
 [ext_resource type="PackedScene" uid="uid://cwk6dxfl2hidq" path="res://big_asteroid_2.tscn" id="9_1r13m"]
 [ext_resource type="PackedScene" uid="uid://c7sj1adjnm0lt" path="res://needler_turret.tscn" id="9_o8vba"]
 [ext_resource type="PackedScene" uid="uid://bq4lolply4y74" path="res://big_asteroid_3.tscn" id="10_jreal"]
+[ext_resource type="Texture2D" uid="uid://dva0btvaaj4l1" path="res://ASSETS/basic cannon.png" id="12_7g3aj"]
+[ext_resource type="Script" uid="uid://vgwnfvej8r4e" path="res://building_manager.gd" id="13_qlhwe"]
 
 [sub_resource type="Curve2D" id="Curve2D_kp03y"]
 _data = {
@@ -18,6 +21,8 @@ point_count = 10
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_f82ap")
+
+[node name="Control" parent="." instance=ExtResource("2_wkoew")]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -109,5 +114,25 @@ position = Vector2(631, 132)
 [node name="Needler_turret5" parent="." instance=ExtResource("9_o8vba")]
 position = Vector2(427, 196)
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TurretButton" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_right = 0.032
+anchor_bottom = 0.059
+offset_left = 1060.0
+offset_top = 544.0
+offset_right = 1098.14
+offset_bottom = 579.768
+
+[node name="BasicCannon" type="Sprite2D" parent="UI"]
+position = Vector2(1099, 583)
+scale = Vector2(1.05833, 1.03438)
+texture = ExtResource("12_7g3aj")
+
+[node name="BuildingManager" type="Node" parent="."]
+script = ExtResource("13_qlhwe")
+
 [connection signal="timeout" from="Timer_cruiser" to="." method="_on_timer_cruiser_timeout"]
 [connection signal="timeout" from="Timer_mob" to="." method="_on_timer_mob_timeout"]
+[connection signal="pressed" from="UI/TurretButton" to="BuildingManager" method="prepare_building" binds= ["needler_turret"]]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://c60f1lf1idcyw"]
+
+[ext_resource type="Texture2D" uid="uid://cetfga2tgxvd5" path="res://ASSETS/background.png" id="1_3lsvx"]
+[ext_resource type="Texture2D" uid="uid://drj5phqdju53m" path="res://ASSETS/planet.png" id="2_2q82h"]
+
+[sub_resource type="Theme" id="Theme_jujhc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yfyr0"]
+bg_color = Color(0.214888, 0.481559, 0.80021, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 300.0
+theme = SubResource("Theme_jujhc")
+theme_override_styles/panel = SubResource("StyleBoxFlat_yfyr0")
+metadata/_edit_lock_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 600.0
+scale = Vector2(0.5, 0.5)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(600, 600)
+render_target_update_mode = 4
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="SubViewportContainer/SubViewport"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="SubViewportContainer/SubViewport/ParallaxBackground"]
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(7468, 5557)
+
+[node name="Background" type="Sprite2D" parent="SubViewportContainer/SubViewport/ParallaxBackground/ParallaxLayer"]
+z_index = -1
+z_as_relative = false
+position = Vector2(643, 348)
+texture = ExtResource("1_3lsvx")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="SubViewportContainer/SubViewport/ParallaxBackground"]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="SubViewportContainer/SubViewport/ParallaxBackground"]
+position = Vector2(34, -1075)
+
+[node name="Planet" type="Sprite2D" parent="SubViewportContainer/SubViewport/ParallaxBackground/ParallaxLayer2"]
+light_mask = 2
+visibility_layer = 2
+z_index = 1
+position = Vector2(439, 1412)
+texture = ExtResource("2_2q82h")
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(563, 302)
+limit_left = -3000
+limit_top = -2500
+limit_right = 4400
+limit_bottom = 3100
+position_smoothing_enabled = true
